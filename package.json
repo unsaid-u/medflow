@@ -4,7 +4,11 @@
   "description": "Medflow",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "migrate:single": "knex migrate:up --knexfile ./db/knexfile.js",
+    "migrate:up": "knex migrate:latest --knexfile ./db/knexfile.js",
+    "migrate:down": "knex migrate:rollback --knexfile ./db/knexfile.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,17 @@
   "bugs": {
     "url": "https://github.com/unsaid-u/medflow/issues"
   },
-  "homepage": "https://github.com/unsaid-u/medflow#readme"
+  "homepage": "https://github.com/unsaid-u/medflow#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "express-async-handler": "^1.2.0",
+    "knex": "^2.5.1",
+    "objection": "^3.1.0",
+    "sqlite3": "^5.1.6",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
