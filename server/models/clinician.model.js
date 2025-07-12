@@ -1,6 +1,7 @@
 const { Model } = require("objection");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
+const { PAGINATION_DEFAULT, SORT_ORDER } = require("../constants");
 
 const DB = require("../../db/connection").DB;
 
@@ -52,6 +53,30 @@ class ClinicianModel extends Model {
       return user;
     }
     return null;
+  }
+
+  static async getAllClinicians(
+    pageNo = PAGINATION_DEFAULT.PAGE_NO,
+    pageSize = PAGINATION_DEFAULT.PAGE_SIZE,
+    searchByName,
+    sortBy = "created_at",
+    sortOrder = SORT_ORDER.DESC
+  ) {
+    const query = this.query().orderBy(`${sortBy}`, `${sortOrder}`);
+
+    if (searchByName) {
+      query.where("name", "ilike", `%${searchByName}%`);
+    }
+
+    return await query.page(pageNo - 1, pageSize);
+  }
+
+  static async createClinician(clinician) {
+    return await this.query().insert(clinician);
+  }
+
+  static async getClinicianById(id) {
+    return await this.query().findById(id);
   }
 }
 
