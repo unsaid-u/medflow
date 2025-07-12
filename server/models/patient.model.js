@@ -1,5 +1,6 @@
 const { Model } = require("objection");
 const { v4: uuidv4 } = require("uuid");
+const { SORT_ORDER } = require("../constants");
 
 const DB = require("../../db/connection").DB;
 
@@ -43,7 +44,21 @@ class PatientsModel extends Model {
     this.update_at = new Date().toISOString();
   }
 
-  static async getAllPatients(pageNo = 1, pageSize, searchByName = null) {}
+  static async getAllPatients(
+    pageNo = PAGINATION_DEFAULT.PAGE_NO,
+    pageSize = PAGINATION_DEFAULT.PAGE_SIZE,
+    searchByName,
+    sortBy = "created_at",
+    sortOrder = SORT_ORDER.DESC
+  ) {
+    const query = this.query().orderBy(`${sortBy}`, `${sortOrder}`);
+
+    if (searchByName) {
+      query.where("name", "ilike", `%${searchByName}%`);
+    }
+
+    return await query.page(pageNo - 1, pageSize);
+  }
 }
 
 module.exports = { PatientsModel };

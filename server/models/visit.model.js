@@ -17,12 +17,13 @@ class VisitsModel extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["clinician_id", "patient_id"],
+      required: ["clinician_id", "patient_id", "patient_name"],
 
       properties: {
         id: { type: "string" },
         clinician_id: { type: "string", minLength: 1, maxLength: 255 },
         patient_id: { type: "string", minLength: 1, maxLength: 255 },
+        patient_name: { type: "string", minLength: 1, maxLength: 255 },
         visit_type: { type: "string", nullable: true, default: "general" },
         notes: { type: "string", nullable: true },
       },
@@ -36,6 +37,36 @@ class VisitsModel extends Model {
     }
 
     this.update_at = new Date().toISOString();
+  }
+
+  static async createVisit(visit) {
+    return await this.query().insert(visit);
+  }
+
+  static async getAllVisits(
+    pageNo,
+    pageSize,
+    searchByName,
+    sortBy,
+    sortOrder,
+    clinicianId,
+    patientId
+  ) {
+    const query = this.query().orderBy(`${sortBy}`, `${sortOrder}`);
+
+    if (searchByName) {
+      query.where("patient_name", "ilike", `%${searchByName}%`);
+    }
+
+    if (clinicianId) {
+      query.where("clinician_id", clinicianId);
+    }
+
+    if (patientId) {
+      query.where("patient_id", patientId);
+    }
+
+    return await query.page(pageNo - 1, pageSize);
   }
 }
 

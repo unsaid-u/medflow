@@ -7,6 +7,7 @@ exports.up = function (knex) {
     table.string("id").primary();
     table.string("clinician_id", 255).notNullable();
     table.string("patient_id", 255).notNullable();
+    table.string("patient_name", 255).notNullable();
     table.string("visit_type").nullable().defaultTo("general");
     table.text("notes").nullable();
     table.timestamp("created_at").notNullable().defaultTo(knex.fn.now());
@@ -17,13 +18,21 @@ exports.up = function (knex) {
       .references("id")
       .inTable("clinicians")
       .onDelete("SET NULL"); // if the clinician is deleted, the visit will be set to null
+
     table
       .foreign("patient_id")
       .references("id")
       .inTable("patients")
       .onDelete("CASCADE"); // if the patient is deleted, the visit will be deleted
 
-    // index (b tree)
+    table
+      .foreign("patient_name")
+      .references("name")
+      .inTable("patients")
+      .onDelete("CASCADE");
+
+    // index
+    table.index("patient_name");
     table.index("clinician_id");
     table.index("patient_id");
   });
