@@ -44,6 +44,15 @@ class VisitHandler {
       page,
     });
   }
+
+  static async createVisit(req, res) {
+    const visit = await VisitsModel.createVisit(req.body);
+
+    res.status(201).json({
+      message: "Visit created successfully",
+      visit,
+    });
+  }
 }
 
 module.exports = VisitHandler;

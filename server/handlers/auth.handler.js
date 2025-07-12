@@ -1,8 +1,13 @@
 const { ClinicianModel } = require("../models/clinician.model");
 
 class AuthHandler {
-  static async register(req, res) {
-    const { name, email, password } = req.body;
+  static async registerUser(req, res) {
+    const user = await ClinicianModel.createClinician(req.body);
+
+    res.status(201).json({
+      message: "Clinician created successfully",
+      user,
+    });
   }
 
   static async loginUser(req, res) {
