@@ -3,15 +3,16 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import Layout from "./components/Layout";
+
+// lazy load these components
 import PatientsListing from "./pages/PatientsListing";
 import CliniciansListing from "./pages/CliniciansListing";
+import VisitsListing from "./pages/VisitsListing";
 
 // Dummy Page Components
 const Login = () => <h1>Login Page</h1>;
 const Register = () => <h1>Register Page</h1>;
 const Dashboard = () => <h1>Dashboard</h1>;
-
-const CreateVisit = () => <h1>Create Visit</h1>;
 
 // 3. App Component with Routes
 function App() {
@@ -26,10 +27,10 @@ function App() {
           {/* Protected Nested Routes */}
           <Route path="/dashboard" element={<ProtectedRoutes />}>
             <Route element={<Layout />}>
-              <Route index element={<Dashboard />} />
+              <Route index element={<VisitsListing />} />
               <Route path="patients" element={<PatientsListing />} />
               <Route path="clinicians" element={<CliniciansListing />} />
-              <Route path="create-visit" element={<CreateVisit />} />
+              {/* <Route path="create-visit" element={<CreateVisit />} /> */}
             </Route>
           </Route>
 

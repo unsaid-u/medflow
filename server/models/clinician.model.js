@@ -33,7 +33,7 @@ class ClinicianModel extends Model {
     };
   }
 
-  static async beforeInsert() {
+  async $beforeInsert() {
     this.id = uuidv4();
     if (this.password) {
       this.password = await bcrypt.hash(this.password, 10);

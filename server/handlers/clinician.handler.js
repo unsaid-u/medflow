@@ -28,11 +28,11 @@ class ClinicianHandler {
       itemTotal,
     };
 
-    if (items.length === 0) {
-      return res.status(404).json({
-        message: "No clinicians found",
-      });
-    }
+    // if (items.length === 0) {
+    //   return res.status(404).json({
+    //     message: "No clinicians found",
+    //   });
+    // }
 
     res.json({
       items,

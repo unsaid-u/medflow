@@ -26,17 +26,22 @@ class VisitsModel extends Model {
         patient_name: { type: "string", minLength: 1, maxLength: 255 },
         visit_type: { type: "string", nullable: true, default: "general" },
         notes: { type: "string", nullable: true },
+        created_at: { type: "string" },
+        updated_at: { type: "string" },
       },
     };
   }
 
-  static async beforeInsert() {
+  $beforeInsert(queryContext) {
     this.id = uuidv4();
     if (!this.created_at) {
       this.created_at = new Date().toISOString();
     }
+    this.updated_at = new Date().toISOString();
+  }
 
-    this.update_at = new Date().toISOString();
+  $beforeUpdate(opt, queryContext) {
+    this.updated_at = new Date().toISOString();
   }
 
   static async createVisit(visit) {
