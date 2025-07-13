@@ -7,6 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
 import Alert from "@mui/material/Alert";
 import { patientsAPI, visitsAPI } from "../utils/api";
+import { toast } from "react-toastify";
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,11 +27,17 @@ const ButtonGroup = styled.div`
   justify-content: flex-end;
 `;
 
-function CreateVisitModal({ closeModal, onVisitCreated }) {
+function CreateVisitModal({
+  closeModal,
+  onVisitCreated,
+  clinicianId,
+  patientId,
+  patientName,
+}) {
   const [formData, setFormData] = useState({
-    patientId: "",
-    patientName: "",
-    clinicianId: "",
+    patientId: patientId || "",
+    patientName: patientName || "",
+    clinicianId: clinicianId || "",
     notes: "",
   });
 
@@ -71,7 +78,6 @@ function CreateVisitModal({ closeModal, onVisitCreated }) {
     formData.patientId && formData.patientName && formData.clinicianId;
 
   const handleSave = async () => {
-    console.log(formData);
     const requestBody = {
       patient_id: formData.patientId,
       patient_name: formData.patientName,
@@ -89,7 +95,7 @@ function CreateVisitModal({ closeModal, onVisitCreated }) {
       }
     } else {
       setErrorAlert("");
-
+      toast.success("Visit created successfully");
       // Call the callback to refresh visits list
       if (onVisitCreated) {
         onVisitCreated();

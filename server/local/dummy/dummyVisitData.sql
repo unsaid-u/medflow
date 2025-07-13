@@ -1,0 +1,25 @@
+INSERT INTO visits (
+  id,
+  clinician_id,
+  patient_id,
+  patient_name,
+  visit_type,
+  notes,
+  created_at,
+  updated_at
+) VALUES
+('visit-001', 'test-clinician-003', '1a2b3c', 'Alice Johnson', 'general', 'Routine check-up', '2025-07-12T09:00:00Z', '2025-07-12T09:00:00Z'),
+('visit-002', 'test-clinician-003', '2b3c4d', 'Bob Smith', 'general', 'Discuss test results', '2025-07-12T09:30:00Z', '2025-07-12T09:30:00Z'),
+('visit-003', 'test-clinician-003', '3c4d5e', 'Carol Davis', 'general', NULL, '2025-07-12T10:00:00Z', '2025-07-12T10:00:00Z'),
+('visit-004', 'test-clinician-004', '1a2b3c', 'Alice Johnson', 'general', 'Follow-up on medication', '2025-07-12T10:30:00Z', '2025-07-12T10:30:00Z'),
+('visit-005', 'test-clinician-004', '2b3c4d', 'Bob Smith', 'general', NULL, '2025-07-12T11:00:00Z', '2025-07-12T11:00:00Z'),
+('visit-006', 'test-clinician-004', '3c4d5e', 'Carol Davis', 'general', 'Initial consultation', '2025-07-12T11:30:00Z', '2025-07-12T11:30:00Z'),
+('visit-007', 'test-clinician-003', '4d5e6f', 'David Thompson', 'general', 'Lab review', '2025-07-12T12:00:00Z', '2025-07-12T12:00:00Z'),
+('visit-008', 'test-clinician-003', '5e6f7g', 'Eve Williams', 'general', NULL, '2025-07-12T12:30:00Z', '2025-07-12T12:30:00Z'),
+('visit-009', 'test-clinician-003', '6f7g8h', 'Frank Miller', 'general', 'Discuss MRI', '2025-07-12T13:00:00Z', '2025-07-12T13:00:00Z'),
+('visit-010', 'test-clinician-004', '7g8h9i', 'Grace Lee', 'general', NULL, '2025-07-12T13:30:00Z', '2025-07-12T13:30:00Z'),
+('visit-011', 'test-clinician-004', '8h9i0j', 'Henry Kim', 'general', 'Allergy check', '2025-07-12T14:00:00Z', '2025-07-12T14:00:00Z'),
+('visit-012', 'test-clinician-004', '9i0j1k', 'Isla Brown', 'general', NULL, '2025-07-12T14:30:00Z', '2025-07-12T14:30:00Z'),
+('visit-013', 'test-clinician-003', '0j1k2l', 'Jack White', 'general', 'Blood pressure follow-up', '2025-07-12T15:00:00Z', '2025-07-12T15:00:00Z'),
+('visit-014', 'test-clinician-003', '1k2l3m', 'Karen Young', 'general', NULL, '2025-07-12T15:30:00Z', '2025-07-12T15:30:00Z'),
+('visit-015', 'test-clinician-003', '2l3m4n', 'Leo Martinez', 'general', 'Check post-surgery progress', '2025-07-12T16:00:00Z', '2025-07-12T16:00:00Z'); 
