@@ -25,12 +25,6 @@ exports.up = function (knex) {
       .inTable("patients")
       .onDelete("CASCADE"); // if the patient is deleted, the visit will be deleted
 
-    table
-      .foreign("patient_name")
-      .references("name")
-      .inTable("patients")
-      .onDelete("CASCADE");
-
     // index
     table.index("patient_name");
     table.index("clinician_id");

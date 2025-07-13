@@ -35,7 +35,7 @@ class PatientsModel extends Model {
     };
   }
 
-  static async beforeInsert() {
+  $beforeInsert() {
     this.id = uuidv4();
     if (!this.created_at) {
       this.created_at = new Date().toISOString();
@@ -58,6 +58,10 @@ class PatientsModel extends Model {
     }
 
     return await query.page(pageNo - 1, pageSize);
+  }
+
+  static async getPatientById(id) {
+    return await this.query().where("id", id).first();
   }
 }
 

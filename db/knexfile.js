@@ -14,4 +14,12 @@ module.exports = {
   migrations: {
     directory: migrationDirectories,
   },
+
+  // ! SQLite the foreign key disabled by default
+  // Enable foreign key constraints for SQLite
+  pool: {
+    afterCreate: (conn, done) => {
+      conn.run("PRAGMA foreign_keys = ON", done);
+    },
+  },
 };

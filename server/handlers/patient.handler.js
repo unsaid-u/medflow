@@ -28,16 +28,27 @@ class PatientHandler {
       itemTotal,
     };
 
-    if (items.length === 0) {
-      return res.status(404).json({
-        message: "No patients found",
-      });
-    }
+    // if (items.length === 0) {
+    //   return res.status(404).json({
+    //     message: "No patients found",
+    //   });
+    // }
 
     res.json({
       items,
       page,
     });
+  }
+
+  static async getPatientById(req, res) {
+    const { id } = req.params;
+    const patient = await PatientsModel.getPatientById(id);
+    if (!patient) {
+      return res.status(404).json({
+        message: "Patient not found",
+      });
+    }
+    res.json(patient);
   }
 }
 
