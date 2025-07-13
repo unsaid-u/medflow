@@ -42,7 +42,6 @@ Medflow is a full-stack web application that provides healthcare professionals w
 - **Material-UI** for component library and styling
 - **React Router** for navigation and routing
 - **Styled Components** for custom styling
-- **Axios** for API communication
 
 ## Local Setup
 
