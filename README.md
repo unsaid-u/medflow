@@ -68,7 +68,8 @@ Medflow is a full-stack web application that provides healthcare professionals w
 3. **Add dummy data (for patients, clients, visits, for better testing experience)**
 
    ```bash
-   sh server/local/dummy/run.dummydata.sh
+   cd server/local/dummy
+   sh run.dummydata.sh
    ```
 
 4. **Start the development server**
