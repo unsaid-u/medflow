@@ -11,6 +11,7 @@ import CreateVisitModal from "./CreateVisitModal";
 
 // Styled Components
 const CardContainer = styled.div`
+  position: relative;
   /* width: 100%; */
   min-width: 300px;
   max-width: 400px;
@@ -70,6 +71,9 @@ const Field = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
   display: flex;
   justify-content: flex-end;
   /* margin-top: 16px; */

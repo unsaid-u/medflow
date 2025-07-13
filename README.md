@@ -66,10 +66,10 @@ Medflow is a full-stack web application that provides healthcare professionals w
    sh run.migrate.sh
    ```
 
-3. **Add dummy data (for patients)**
+3. **Add dummy data (for patients, clients, visits, for better testing experience)**
 
    ```bash
-   node server/local/dummy/populatePatientsData.js
+   sh server/local/dummy/run.dummydata.sh
    ```
 
 4. **Start the development server**

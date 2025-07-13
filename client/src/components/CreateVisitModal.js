@@ -7,6 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
 import Alert from "@mui/material/Alert";
 import { patientsAPI, visitsAPI } from "../utils/api";
+import { toast } from "react-toastify";
 
 const Wrapper = styled.div`
   display: flex;
@@ -77,7 +78,6 @@ function CreateVisitModal({
     formData.patientId && formData.patientName && formData.clinicianId;
 
   const handleSave = async () => {
-    console.log(formData);
     const requestBody = {
       patient_id: formData.patientId,
       patient_name: formData.patientName,
@@ -95,7 +95,7 @@ function CreateVisitModal({
       }
     } else {
       setErrorAlert("");
-
+      toast.success("Visit created successfully");
       // Call the callback to refresh visits list
       if (onVisitCreated) {
         onVisitCreated();
