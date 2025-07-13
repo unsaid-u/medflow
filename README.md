@@ -1,6 +1,6 @@
 # Medflow
 
-A comprehensive medical practice management system designed to streamline patient visits, clinician management, and healthcare operations.
+An internal tool for healthcare facilities to track when clinicians (doctors, nurses, etc.) visit patients. Think of it as a digital logbook for patient care.
 
 ## Description
 
