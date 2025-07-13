@@ -4,6 +4,7 @@ import Paginator from "../components/Paginator";
 
 import ProfileCard from "../components/ProfileCard";
 import { Skeleton } from "@mui/material";
+import { patientsAPI } from "../utils/api";
 
 const Wrapper = styled.div`
   display: flex;
@@ -119,21 +120,12 @@ function PatientsListing() {
     const fetchPatients = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "https://asia-south1.workflow.boltic.app/b4aad7f7-1a51-4d38-a260-34e387c3fd0f/patients",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const { data, error: apiError } = await patientsAPI.getAll();
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (apiError) {
+          throw new Error(apiError);
         }
 
-        const data = await response.json();
         setPatients(data.items);
       } catch (err) {
         setError(err.message);

@@ -3,8 +3,8 @@ import React, { useState, createContext, useContext } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
-  // * we can update the login logic as per simple logic
+  // *  login logic as per simple logic
+  // but for future scope need to add Http only tokens with expiry and API for checking and refreshing tokens
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token"));
 
   const login = (token) => {
@@ -28,9 +28,9 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
 
-export default AuthContext; 
+export default AuthContext;

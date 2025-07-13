@@ -8,13 +8,10 @@ import Layout from "./components/Layout";
 import PatientsListing from "./pages/PatientsListing";
 import CliniciansListing from "./pages/CliniciansListing";
 import VisitsListing from "./pages/VisitsListing";
+import EmptyPage from "./pages/EmptyPage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
-// Dummy Page Components
-const Login = () => <h1>Login Page</h1>;
-const Register = () => <h1>Register Page</h1>;
-const Dashboard = () => <h1>Dashboard</h1>;
-
-// 3. App Component with Routes
 function App() {
   return (
     <BrowserRouter>
@@ -36,6 +33,8 @@ function App() {
 
           {/* Redirect root path to dashboard */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
+
+          <Route path="*" element={<EmptyPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

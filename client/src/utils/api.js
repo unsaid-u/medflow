@@ -5,6 +5,7 @@ const defaultOptions = {
     "Content-Type": "application/json",
   },
   timeout: ENV_CONFIG.apiTimeout,
+  credentials: "include", // for sending cookies
 };
 
 export const apiRequest = async (url, options = {}) => {
@@ -26,16 +27,34 @@ export const apiRequest = async (url, options = {}) => {
   }
 };
 
+export const authAPI = {
+  login: async (credentials) => {
+    const url = buildApiUrl(API_CONFIG.ENDPOINTS.AUTH, "/login");
+    return apiRequest(url, {
+      method: "POST",
+      body: JSON.stringify(credentials),
+    });
+  },
+
+  register: async (userData) => {
+    const url = buildApiUrl(API_CONFIG.ENDPOINTS.AUTH, "/register");
+    return apiRequest(url, {
+      method: "POST",
+      body: JSON.stringify(userData),
+    });
+  },
+};
+
 export const patientsAPI = {
   getById: async (id) => {
     const url = buildApiUrl(API_CONFIG.ENDPOINTS.PATIENTS, `/${id}`);
     return apiRequest(url);
   },
 
-  getAll: async (page = 1, limit = 10) => {
+  getAll: async (page = 1, limit = 9) => {
     const url = buildApiUrl(
       API_CONFIG.ENDPOINTS.PATIENTS,
-      `?page=${page}&limit=${limit}`
+      `?pageNo=${page}&pageSize=${limit}`
     );
     return apiRequest(url);
   },
@@ -47,10 +66,10 @@ export const cliniciansAPI = {
     return apiRequest(url);
   },
 
-  getAll: async (page = 1, limit = 10) => {
+  getAll: async (page = 1, limit = 9) => {
     const url = buildApiUrl(
       API_CONFIG.ENDPOINTS.CLINICIANS,
-      `?page=${page}&limit=${limit}`
+      `?pageNo=${page}&pageSize=${limit}`
     );
     return apiRequest(url);
   },

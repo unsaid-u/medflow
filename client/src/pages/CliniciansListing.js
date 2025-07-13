@@ -4,6 +4,7 @@ import Paginator from "../components/Paginator";
 
 import ProfileCard from "../components/ProfileCard";
 import { Skeleton } from "@mui/material";
+import { cliniciansAPI } from "../utils/api";
 
 const Wrapper = styled.div`
   display: flex;
@@ -115,26 +116,21 @@ function CliniciansListing() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+
   useEffect(() => {
     const fetchClinicians = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "https://asia-south1.workflow.boltic.app/b4aad7f7-1a51-4d38-a260-34e387c3fd0f/patients",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const { data, error: apiError } = await cliniciansAPI.getAll(page);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (apiError) {
+          throw new Error(apiError);
         }
 
-        const data = await response.json();
         setClinicians(data.items);
+        setTotal(data.page.itemTotal);
       } catch (err) {
         setError(err.message);
         console.error("Error fetching clinicians:", err);
@@ -144,7 +140,7 @@ function CliniciansListing() {
     };
 
     fetchClinicians();
-  }, []);
+  }, [page]);
 
   const renderContent = () => {
     if (loading) {
@@ -172,7 +168,12 @@ function CliniciansListing() {
       <Heading>Clinicians</Heading>
       <CardsListingWrapper>{renderContent()}</CardsListingWrapper>
       <PaginatorWrapper>
-        <Paginator />
+        <Paginator
+          count={Math.ceil(total / 9)}
+          handleChange={(page) => {
+            setPage(page);
+          }}
+        />
       </PaginatorWrapper>
     </Wrapper>
   );

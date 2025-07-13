@@ -43,7 +43,7 @@ class ClinicianModel extends Model {
       this.created_at = new Date().toISOString();
     }
 
-    this.update_at = new Date().toISOString();
+    this.updated_at = new Date().toISOString();
   }
 
   static async authenticate(email, password) {
