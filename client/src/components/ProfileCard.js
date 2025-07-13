@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Avatar from "@mui/material/Avatar";
+import { toast } from "react-toastify";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import IconButton from "@mui/material/IconButton";
+import EditCalendarIcon from "@mui/icons-material/EditCalendar";
+import Tooltip from "@mui/material/Tooltip";
+import useModal from "../hooks/useModal";
+import CreateVisitModal from "./CreateVisitModal";
 
 // Styled Components
 const CardContainer = styled.div`
@@ -38,9 +45,16 @@ const Name = styled.div`
 `;
 
 const DOB = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: 13.6px;
   color: #757575;
   font-family: Inter;
+
+  .copy {
+    cursor: pointer;
+  }
 `;
 
 const Body = styled.div`
@@ -55,8 +69,16 @@ const Field = styled.div`
   font-family: Inter;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  /* margin-top: 16px; */
+`;
+
 // Component
-const ProfileCard = ({ user }) => {
+const ProfileCard = ({ user, isPatient = false }) => {
+  const { openModal, closeModal, Modal } = useModal();
+
   // Function to generate avatar color based on name
   const getAvatarColor = (name) => {
     const colors = [
@@ -77,7 +99,16 @@ const ProfileCard = ({ user }) => {
       .reduce((sum, char) => sum + char.charCodeAt(0), 0);
     return colors[nameSum % colors.length];
   };
-  console.log(user.dob, user.address, user.speciality);
+
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("ID copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy to clipboard:", err);
+    }
+  };
+
   return (
     <CardContainer>
       <Header>
@@ -86,6 +117,17 @@ const ProfileCard = ({ user }) => {
         </Avatar>
         <NameDOBWrapper>
           <Name>{user.name}</Name>
+          {user.id && (
+            <DOB
+              title={`Click to copy: ${user.id}`}
+              className="copy"
+              onClick={() => copyToClipboard(user.id)}
+              style={{ cursor: "pointer" }}
+            >
+              {user.id.length > 10 ? `${user.id.slice(0, 20)}...` : user.id}
+              <ContentCopyIcon fontSize="small" />
+            </DOB>
+          )}
           {user.dob && <DOB>DOB: {user.dob}</DOB>}
           {user.speciality && <DOB>Specialty: {user.speciality}</DOB>}
         </NameDOBWrapper>
@@ -96,6 +138,28 @@ const ProfileCard = ({ user }) => {
         {user.address && <Field>{user.address}</Field>}
         {user.contact && <Field>{user.contact}</Field>}
       </Body>
+
+      <ButtonWrapper>
+        <Tooltip title="Create Visit" placement="top">
+          <IconButton
+            variant="contained"
+            color="primary"
+            onClick={() => openModal()}
+          >
+            <EditCalendarIcon />
+          </IconButton>
+        </Tooltip>
+      </ButtonWrapper>
+
+      <Modal>
+        <CreateVisitModal
+          closeModal={closeModal}
+          onVisitCreated={() => {}}
+          clinicianId={!isPatient ? user.id : null}
+          patientId={isPatient ? user.id : null}
+          patientName={isPatient ? user.name : null}
+        />
+      </Modal>
     </CardContainer>
   );
 };

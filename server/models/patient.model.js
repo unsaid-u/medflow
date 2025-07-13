@@ -41,7 +41,7 @@ class PatientsModel extends Model {
       this.created_at = new Date().toISOString();
     }
 
-    this.update_at = new Date().toISOString();
+    this.updated_at = new Date().toISOString();
   }
 
   static async getAllPatients(
@@ -62,6 +62,14 @@ class PatientsModel extends Model {
 
   static async getPatientById(id) {
     return await this.query().where("id", id).first();
+  }
+
+  static async createPatient(patient) {
+    return await this.query().insert(patient);
+  }
+
+  static async updatePatient(id, patient) {
+    return await this.query().where("id", id).update(patient);
   }
 }
 

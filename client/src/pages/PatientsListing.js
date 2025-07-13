@@ -5,6 +5,7 @@ import Paginator from "../components/Paginator";
 import ProfileCard from "../components/ProfileCard";
 import { Skeleton } from "@mui/material";
 import { patientsAPI } from "../utils/api";
+import { toast } from "react-toastify";
 
 const Wrapper = styled.div`
   display: flex;
@@ -129,6 +130,7 @@ function PatientsListing() {
         setPatients(data.items);
       } catch (err) {
         setError(err.message);
+        toast.error("Error fetching patients");
         console.error("Error fetching patients:", err);
       } finally {
         setLoading(false);
@@ -155,7 +157,7 @@ function PatientsListing() {
     }
 
     return patients.map((patient, index) => (
-      <ProfileCard key={patient.id || index} user={patient} />
+      <ProfileCard key={patient.id || index} user={patient} isPatient={true} />
     ));
   };
 

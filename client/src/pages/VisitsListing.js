@@ -6,6 +6,8 @@ import useModal from "../hooks/useModal";
 import CreateVisitModal from "../components/CreateVisitModal";
 import VistsTable from "../components/VistsTable";
 import { visitsAPI } from "../utils/api";
+import { toast } from "react-toastify";
+import Alert from "@mui/material/Alert";
 
 const Wrapper = styled.div`
   display: flex;
@@ -54,7 +56,7 @@ function VisitsListing() {
 
     if (error) {
       console.error(error);
-      // toast
+      toast.error("Error fetching visits");
     } else {
       setVisits(data.items);
       setTotal(data.page.itemTotal);
@@ -80,6 +82,10 @@ function VisitsListing() {
         </Button>
       </HeaderDiv>
 
+      <Alert severity="info">
+        You need patient ID and clinician ID for creating visit, you can
+        directly create visits from Patient and Clinician directories
+      </Alert>
       <VisitsTableWrapper>
         <VistsTable
           visits={visits}

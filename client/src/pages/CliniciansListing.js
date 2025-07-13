@@ -5,6 +5,7 @@ import Paginator from "../components/Paginator";
 import ProfileCard from "../components/ProfileCard";
 import { Skeleton } from "@mui/material";
 import { cliniciansAPI } from "../utils/api";
+import { toast } from "react-toastify";
 
 const Wrapper = styled.div`
   display: flex;
@@ -133,6 +134,7 @@ function CliniciansListing() {
         setTotal(data.page.itemTotal);
       } catch (err) {
         setError(err.message);
+        toast.error("Error fetching clinicians");
         console.error("Error fetching clinicians:", err);
       } finally {
         setLoading(false);

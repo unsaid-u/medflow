@@ -26,11 +26,17 @@ const ButtonGroup = styled.div`
   justify-content: flex-end;
 `;
 
-function CreateVisitModal({ closeModal, onVisitCreated }) {
+function CreateVisitModal({
+  closeModal,
+  onVisitCreated,
+  clinicianId,
+  patientId,
+  patientName,
+}) {
   const [formData, setFormData] = useState({
-    patientId: "",
-    patientName: "",
-    clinicianId: "",
+    patientId: patientId || "",
+    patientName: patientName || "",
+    clinicianId: clinicianId || "",
     notes: "",
   });
 
