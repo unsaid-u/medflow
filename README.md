@@ -21,8 +21,6 @@ Medflow is a full-stack web application that provides healthcare professionals w
 
 - **RESTful API**: Complete backend API with proper validation and error handling
 - **Database Management**: SQLite database with Knex.js migrations and Objection.js ORM
-- **Real-time Updates**: Dynamic data refresh and real-time interface updates
-- **Responsive Design**: Mobile-friendly interface using Material-UI components
 - **Security**: Password hashing, input validation, and CORS protection
 
 ## Tech Stack
