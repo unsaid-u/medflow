@@ -198,7 +198,8 @@ You will be able access the dashboard
 
 ## Author
 
-**Utkarsh** - [GitHub](https://github.com/unsaid-u)
+**Utkarsh** - [GitHub](https://github.com/unsaid-u) , [email](mailto:utkarsh0017@gmail.com)
+
 
 ## Support
 
