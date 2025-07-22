@@ -8,6 +8,7 @@ import VistsTable from "../components/VistsTable";
 import { visitsAPI } from "../utils/api";
 import { toast } from "react-toastify";
 import Alert from "@mui/material/Alert";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -84,7 +85,21 @@ function VisitsListing() {
 
       <Alert severity="info">
         You need patient ID and clinician ID for creating visit, you can
-        directly create visits from Patient and Clinician directories
+        directly create visits from{" "}
+        <Link
+          to="/dashboard/patients"
+          style={{ color: "inherit", textDecoration: "underline" }}
+        >
+          Patient
+        </Link>{" "}
+        and{" "}
+        <Link
+          to="/dashboard/clinicians"
+          style={{ color: "inherit", textDecoration: "underline" }}
+        >
+          Clinician
+        </Link>{" "}
+        directories
       </Alert>
       <VisitsTableWrapper>
         <VistsTable
