@@ -59,8 +59,7 @@ Medflow is a full-stack web application that provides healthcare professionals w
 2. **Run database migrations**
 
    ```bash
-   cd server/local
-   sh run.migrate.sh
+   npm run migrate:up
    ```
 
 3. **Add dummy data (for patients, clients, visits, for better testing experience)**
